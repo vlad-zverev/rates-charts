@@ -1,0 +1,5 @@
+aiohttp==3.8.1
+python-dotenv==0.20.0
+pandas==1.4.2
+matplotlib==3.5.2
+humanize==4.1.0
