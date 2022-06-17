@@ -85,7 +85,7 @@ class RatesPDFBuilder:
 		page.text(0.5, 0.5, 'Exchange Rates Charts', transform=page.transFigure, size=24, ha='center')
 		page.text(0.5, 0.4, base_currencies_txt, transform=page.transFigure, size=16, ha='center')
 		page.text(0.5, 0.35, 'with', transform=page.transFigure, size=16, ha='center')
-		page.text(0.5, 0.4, quote_currencies_txt, transform=page.transFigure, size=16, ha='center')
+		page.text(0.5, 0.3, quote_currencies_txt, transform=page.transFigure, size=16, ha='center')
 		pdf.savefig(facecolor=Colors.SOFT_BLUE)
 		plt.close()
 

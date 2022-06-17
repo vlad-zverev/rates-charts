@@ -9,5 +9,6 @@
 ### Run:
 `python3 main.py`
 
-#### NOTE: 
-You can specify list of currencies, interval days and other parameters in .env-file
+List of currencies, interval days and other parameters can be changed in [.env](https://github.com/vlad-zverev/rates-charts/blob/main/.env) file
+
+Example script output: [rates.pdf](https://github.com/vlad-zverev/rates-charts/blob/main/rates.pdf)
