@@ -24,7 +24,6 @@ PDF_FILE_PATH = environ.get('PDF_FILE_PATH')
 
 
 async def main():
-    """ App entrypoint """
 
     storage = RatesStorage(
         api=CurrencyApiClient(
