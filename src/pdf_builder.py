@@ -34,7 +34,7 @@ class ChartsPDFBuilder:
         self._quote_currencies = quote_currencies
         self._set_styles(plots_style)
 
-    def compose_pdf(self, file_path: str = 'rates.pdf') -> PdfPages:
+    def compose_pdf(self, file_path: str = 'rates.pdf') -> None:
         """ Generate new PDF-file with exchange rates plots """
         rates = self._storage.rates
         with PdfPages(file_path) as pdf:
@@ -44,8 +44,7 @@ class ChartsPDFBuilder:
                 for quote_currency in self._quote_currencies:
                     self._create_page(pdf, df, base_currency, quote_currency)
             pdf.infodict().update(self._metadata)
-            logging.info(f'Rates parsed and compiled into plots to PDF: [{file_path}]')
-            return pdf
+            logging.info(f'Data compiled into PDF with charts: [{file_path}]')
 
     def _create_page(
             self, pdf: PdfPages,
@@ -66,7 +65,7 @@ class ChartsPDFBuilder:
         plt.close()
 
     @staticmethod
-    def _create_plot(currency_rates: pd.Series, dates: pd.Series):
+    def _create_plot(currency_rates: pd.Series, dates: pd.Series) -> None:
         """ Create chart with lines (red or green depending on rates trend) """
         first_rate = currency_rates.iloc[0]
         last_rate = currency_rates.iloc[-1]
@@ -77,7 +76,7 @@ class ChartsPDFBuilder:
             linewidth=int(100 / len(dates)) + 1,
         )
 
-    def _create_title_page(self, pdf: PdfPages):
+    def _create_title_page(self, pdf: PdfPages) -> None:
         page = plt.figure()
         page.clf()
         base_currencies_txt = ' '.join([currency.upper() for currency in self._base_currencies])
@@ -90,7 +89,7 @@ class ChartsPDFBuilder:
         plt.close()
 
     @staticmethod
-    def _set_styles(plots_style: str):
+    def _set_styles(plots_style: str) -> None:
         plt.style.use(plots_style)
         mpl.rcParams['grid.color'] = Colors.BLUE
         mpl.rcParams['text.color'] = Colors.LIGHT_BLUE
@@ -99,7 +98,7 @@ class ChartsPDFBuilder:
         mpl.rcParams['axes.labelcolor'] = Colors.LIGHT_BLUE
         plt.rcParams['axes.facecolor'] = Colors.DARK_BLUE
 
-    def _set_annotations(self, currency_rates: pd.Series, dates: pd.Series):
+    def _set_annotations(self, currency_rates: pd.Series, dates: pd.Series) -> None:
         plt.annotate(
             f'Min: {self._format_num(currency_rates.min())}\n'
             f'Max: {self._format_num(currency_rates.max())}\n'
@@ -119,16 +118,16 @@ class ChartsPDFBuilder:
         return humanize.intcomma(round(num, precision) if precision else int(num))
 
     @staticmethod
-    def _set_labels():
+    def _set_labels() -> None:
         plt.ylabel('rate')
         plt.xlabel('date')
 
     @staticmethod
-    def _set_title(base_currency: str, quote_currency: str):
+    def _set_title(base_currency: str, quote_currency: str) -> None:
         plt.title(f'{base_currency.upper()}-{quote_currency.upper()}')
 
     @staticmethod
-    def _format_dates(dates: pd.Series):
+    def _format_dates(dates: pd.Series) -> None:
         """ Prettify dates """
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b-%d'))
         plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=int(len(dates) / 10)))

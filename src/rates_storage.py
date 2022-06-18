@@ -48,3 +48,4 @@ class RatesStorage:
             currencies_rates[currency] = df
 
         self._rates = currencies_rates
+        logging.info(f'Rates for currencies updated: {currencies}')
